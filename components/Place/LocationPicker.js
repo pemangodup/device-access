@@ -1,5 +1,9 @@
 import { Alert, StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from "@react-navigation/native";
 import {
   getCurrentPositionAsync,
   useForegroundPermissions,
@@ -8,12 +12,31 @@ import {
 
 import OutlinedButton from "../UI/OutlinedButton";
 import { Colors } from "../../constants/colors";
+import { useEffect, useState } from "react";
 
+// MAIN COMPONENT
 function LocationPicker() {
+  const [pickedLocation, setPickedLocation] = useState();
+
+  const isFocused = useIsFocused(); //Boolea. Becomes true when we come back to this component but false when we move to other component
+
   const navigation = useNavigation();
+  const route = useRoute();
 
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+      // Checking if there are any params when we land on this componenet from other componenets
+      const mapPickedLocation = {
+        lat: route.params.pickedLat,
+        lng: route.params.lng,
+      };
+      setPickedLocation(mapPickedLocation);
+      console.log(`I am here = ` + mapPickedLocation);
+    }
+  }, [route, isFocused]);
 
   async function verifyPermission() {
     if (
@@ -41,7 +64,11 @@ function LocationPicker() {
 
     const location = await getCurrentPositionAsync();
 
-    console.log(location);
+    setPickedLocation({
+      lat: location.coords.latitude,
+      lng: location.coords.longitude,
+    });
+    console.log(pickedLocation);
   }
 
   function pickOnMapHandler() {
