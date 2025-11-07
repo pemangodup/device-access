@@ -13,6 +13,7 @@ import {
 import OutlinedButton from "../UI/OutlinedButton";
 import { Colors } from "../../constants/colors";
 import { useEffect, useState } from "react";
+import MapView from "react-native-maps";
 
 // MAIN COMPONENT
 function LocationPicker() {
@@ -77,7 +78,17 @@ function LocationPicker() {
 
   return (
     <View>
-      <View style={styles.mapPreview}></View>
+      <View style={styles.mapPreview}>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: 37.78,
+            longitude: -122.43,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0422,
+          }}
+        ></MapView>
+      </View>
       <View style={styles.actions}>
         <OutlinedButton icon="location" onPress={getLocationHandler}>
           Locate User
@@ -106,5 +117,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+  },
+  map: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 4,
   },
 });
