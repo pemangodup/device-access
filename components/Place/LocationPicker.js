@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import MapView from "react-native-maps";
 
 // MAIN COMPONENT
-function LocationPicker() {
+function LocationPicker({ onPickLocation }) {
   const [pickedLocation, setPickedLocation] = useState();
 
   const isFocused = useIsFocused(); //Boolea. Becomes true when we come back to this component but false when we move to other component
@@ -35,9 +35,12 @@ function LocationPicker() {
         lng: route.params.lng,
       };
       setPickedLocation(mapPickedLocation);
-      console.log(`I am here = ` + mapPickedLocation);
     }
   }, [route, isFocused]);
+
+  useEffect(() => {
+    onPickLocation(pickedLocation);
+  }, [pickedLocation, onPickLocation]);
 
   async function verifyPermission() {
     if (
