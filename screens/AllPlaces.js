@@ -1,7 +1,7 @@
-import { Text } from "react-native";
-import Placeslist from "../components/Place/PlacesList";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
+
+import Placeslist from "../components/Place/PlacesList";
 
 function AllPlaces({ route }) {
   const [loadedPlaces, setLoadedPlaces] = useState([]);
