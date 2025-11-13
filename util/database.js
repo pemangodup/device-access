@@ -1,6 +1,23 @@
 import * as SQLite from "expo-sqlite";
 
-const database = SQLite.openDatabaseAsync("place.db");
-export function init() {
-  const promise = new Promise((resolvle, reject) => {});
+let database;
+
+async function getDb() {
+  if (!database) {
+    database = await SQLite.openDatabaseAsync("placeDatabase");
+  }
+  return database;
+}
+
+export async function init() {
+  const db = await getDb();
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS places (
+      id INTEGER PRIMARY KEY NOT NULL,
+      title TEXT NOT NULL,
+      imageUri TEXT NOT NULL,
+      lat REAL NOT NULL,
+      lng REAL NOT NULL
+    );
+  `);
 }
