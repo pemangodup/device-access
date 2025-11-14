@@ -1,4 +1,5 @@
 import * as SQLite from "expo-sqlite";
+import { Place } from "../models/place";
 
 let database;
 
@@ -39,9 +40,16 @@ export async function insertPlace(place) {
 
 export async function fetchPlaces() {
   try {
+    const places = [];
     const db = await getDb();
-    const result = await db.getAllAsync("SELECT * FROM places");
-    console.log(result);
+    const _array = await db.getAllAsync("SELECT * FROM places");
+    for (const dp of _array) {
+      places.push(
+        new Place(dp.id, dp.title, dp.imageUri, { lat: dp.lat, lng: dp.lng })
+      );
+    }
+    console.log(places);
+    return places;
   } catch (error) {
     console.log(error);
     throw error;
