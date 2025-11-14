@@ -33,7 +33,7 @@ export async function insertPlace(place) {
     );
     return result.lastInsertRowId;
   } catch (error) {
-    console.log("InsertPlace error: ", error);
+    console.log("I am from error: " + error);
     throw error;
   }
 }
@@ -50,7 +50,7 @@ export async function fetchPlaces() {
     }
     return places;
   } catch (error) {
-    console.log(error);
+    console.log("I am from error: " + error);
     throw error;
   }
 }
@@ -65,7 +65,7 @@ export async function fetchPlaceDetails(id) {
 
     return place[0];
   } catch (error) {
-    console.log(error);
+    console.log("I am from error: " + error);
     throw error;
   }
 }
