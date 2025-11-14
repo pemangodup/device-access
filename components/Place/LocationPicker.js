@@ -32,7 +32,7 @@ function LocationPicker({ onPickLocation }) {
       // Checking if there are any params when we land on this componenet from other componenets
       const mapPickedLocation = {
         lat: route.params.pickedLat,
-        lng: route.params.lng,
+        lng: route.params.pickedLng,
       };
       setPickedLocation(mapPickedLocation);
     }
