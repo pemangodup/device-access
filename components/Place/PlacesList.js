@@ -8,6 +8,7 @@ function Placeslist({ places }) {
   const navigation = useNavigation();
 
   function selectPlaceHandler(id) {
+    console.log(id);
     navigation.navigate("PlaceDetails", {
       placeId: id,
     });

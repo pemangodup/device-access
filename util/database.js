@@ -48,8 +48,22 @@ export async function fetchPlaces() {
         new Place(dp.id, dp.title, dp.imageUri, { lat: dp.lat, lng: dp.lng })
       );
     }
-    console.log(places);
     return places;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function fetchPlaceDetails(id) {
+  try {
+    const db = await getDb();
+    const place = await db.getAllAsync(
+      "SELECT * FROM places WHERE id =?",
+      `${id}`
+    );
+
+    return place[0];
   } catch (error) {
     console.log(error);
     throw error;
