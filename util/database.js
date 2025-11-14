@@ -69,3 +69,14 @@ export async function fetchPlaceDetails(id) {
     throw error;
   }
 }
+
+// Delete ALL The Data
+export async function clearDb() {
+  try {
+    const db = await getDb();
+    await db.execAsync("DELETE FROM places");
+  } catch (error) {
+    console.log("Delete error: " + error);
+    throw error;
+  }
+}

@@ -7,9 +7,10 @@ import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
 import { Colors } from "./constants/colors";
 import Map from "./screens/Map";
-import { init } from "./util/database";
+import { clearDb, init } from "./util/database";
 import AppLoading from "expo-app-loading";
 import PlaceDetails from "./screens/PlaceDetails";
+import { View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ export default function App() {
   if (!dbInitialixed) {
     return <AppLoading />;
   }
+
   return (
     <>
       <StatusBar style="dark" />
@@ -48,12 +50,14 @@ export default function App() {
             options={({ navigation }) => ({
               title: "Your Favourite Places",
               headerRight: ({ tintColor }) => (
-                <IconButton
-                  icon="add"
-                  size={24}
-                  color={tintColor}
-                  onPress={() => navigation.navigate("AddPlace")}
-                />
+                <View style={{ flexDirection: "row" }}>
+                  <IconButton
+                    icon="add"
+                    size={24}
+                    color={tintColor}
+                    onPress={() => navigation.navigate("AddPlace")}
+                  />
+                </View>
               ),
             })}
           />
