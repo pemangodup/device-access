@@ -72,7 +72,6 @@ function LocationPicker({ onPickLocation }) {
       lat: location.coords.latitude,
       lng: location.coords.longitude,
     });
-    console.log(pickedLocation);
   }
 
   function pickOnMapHandler() {

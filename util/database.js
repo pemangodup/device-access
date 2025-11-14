@@ -23,7 +23,6 @@ export async function init() {
 }
 
 export async function insertPlace(place) {
-  console.log(place);
   try {
     const db = await getDb();
 
@@ -31,10 +30,20 @@ export async function insertPlace(place) {
       `INSERT INTO places (title, imageUri, lat, lng) VALUES (?,?,?,?)`,
       [place.title, place.imageUri, place.location.lat, place.location.lng]
     );
-    console.log("Is if from here: " + result);
     return result.lastInsertRowId;
   } catch (error) {
     console.log("InsertPlace error: ", error);
+    throw error;
+  }
+}
+
+export async function fetchPlaces() {
+  try {
+    const db = await getDb();
+    const result = await db.getAllAsync("SELECT * FROM places");
+    console.log(result);
+  } catch (error) {
+    console.log(error);
     throw error;
   }
 }
