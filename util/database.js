@@ -22,7 +22,18 @@ export async function init() {
   `);
 }
 
-export function insertPlace(place) {
-  const promise = new Promise((resolve, reject) => {});
-  return promise;
+export async function insertPlace(place) {
+  try {
+    const db = await getDb();
+
+    const result = await db.runAsync(
+      `INSERT INTO places (title, imageUri, lat, lng) VALUES (?,?,?,?)`,
+      [place.title, place.imageUri, place.location.lat, place.location.lng]
+    );
+
+    return result.lastInsertRowId;
+  } catch (error) {
+    console.log("InsertPlace error: ", error);
+    throw error;
+  }
 }
