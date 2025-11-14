@@ -15,9 +15,14 @@ export async function init() {
     CREATE TABLE IF NOT EXISTS places (
       id INTEGER PRIMARY KEY NOT NULL,
       title TEXT NOT NULL,
-      imageUri TEXT NOT NULL,
+      imageUri TEXT NOT NULL, 
       lat REAL NOT NULL,
       lng REAL NOT NULL
     );
   `);
+}
+
+export function insertPlace(place) {
+  const promise = new Promise((resolve, reject) => {});
+  return promise;
 }
